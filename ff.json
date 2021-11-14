@@ -1,0 +1,27 @@
+{
+  "title": "Superflex SQL",
+  "dbURL": "http://cors.io/?http://localhost:8000/ff_2021.sqlite",
+  "exampleQueries": [
+    {
+      "display": "Most passing TD at home this year",
+      "query": "select player_name, sum(passing_td) as \"passing td\" from player_games where at_home group by player_name having sum(passing_td) > 0 order by sum(passing_td) desc"
+    },
+    {
+      "display": "Fantasy points scored by a team",
+      "query": "select team, sum(total_points) from player_games group by team order by sum(total_points) desc"
+    },
+    {
+      "display": "Fantasy points allowed by a team",
+      "query": "select player_opponent, sum(total_points) from player_games group by player_opponent order by sum(total_points) desc"
+    },
+    {
+      "display": "Players with negative fantasy points",
+      "query": "select player_name, sum(total_points) from player_games group by player_name having sum(total_points) < 0 order by sum(total_points) asc"
+    },
+    {
+      "display": "Total fantasy points scored per week",
+      "query": "select week, sum(total_points) from player_games group by week order by sum(total_points) desc"
+    }
+  ],
+  "attribution": "Data from https://github.com/hvpkod/NFL-Data"
+}
