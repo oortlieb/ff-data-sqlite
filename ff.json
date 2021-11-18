@@ -1,6 +1,6 @@
 {
   "title": "Superflex SQL",
-  "dbURL": "/ff_2021.sqlite",
+  "dbURL": "./ff_2021.sqlite",
   "exampleQueries": [
     {
       "display": "Most passing TD at home this year",
