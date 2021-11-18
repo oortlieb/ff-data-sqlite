@@ -2,7 +2,7 @@
 
 # curl "http://nflsavant.com/pbp_data.php?year=2021" -o pbp_2021.csv
 
-DATA_PATH="../NFL-Data/NFL-data-Players/2021"
+DATA_PATH="../../NFL-Data/NFL-data-Players/2021"
 DB_NAME=ff_2021.sqlite
 
 rm $DB_NAME
@@ -22,7 +22,6 @@ create table player_games(
     passing_td INT DEFAULT 0 NOT NULL,
     rushing_yds INT DEFAULT 0 NOT NULL,
     rushing_td INT DEFAULT 0 NOT NULL,
-    rushing_passing_yds INT DEFAULT 0 NOT NULL,
     receiving_rec INT DEFAULT 0 NOT NULL,
     receiving_yds INT DEFAULT 0 NOT NULL,
     receiving_td INT DEFAULT 0 NOT NULL,
@@ -48,13 +47,10 @@ END_SQL
 
 for week in `ls -d $DATA_PATH/*/`
 do
-    weekNumberString=${week: -3}
-    weekNumber=${weekNumberString:1:-1}
-
+    weekNumber=$(basename $week)
+    
     for p in "QB" "RB" "WR" "TE"
     do
-        echo "${week}${p}.csv"
-
         sqlite3 $DB_NAME << END_SQL
 .mode csv
 
@@ -71,7 +67,6 @@ insert into player_games(
     passing_td,
     rushing_yds,
     rushing_td,
-    rushing_passing_yds,
     receiving_rec,
     receiving_yds,
     receiving_td ,
@@ -105,7 +100,6 @@ select
     "PassingTD",
     "RushingYDS",
     "RushingTD",
-    "RushingPassingYDS",
     "ReceivingRec",
     "ReceivingYDS",
     "ReceivingTD",
